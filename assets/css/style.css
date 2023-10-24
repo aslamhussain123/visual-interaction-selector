@@ -1,0 +1,23 @@
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #eaeaea;
+    text-align: center;
+    margin-top: 5%;
+    position: relative;
+}
+
+.selection-mode-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.selected-for-tracking {
+    border: 3px solid red !important;
+}
+
+.hover-highlight {
+    background-color: rgba(255, 255, 0, 0.3);
+}
