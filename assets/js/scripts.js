@@ -1,58 +1,64 @@
-$(document).ready(function() {
+document.addEventListener("DOMContentLoaded", function() {
     let selectionMode = false;
 
     function mockSendToGTM(element) {
         let elementType = '';
         let elementLabel = '';
 
-        if ($(element).is('button')) {
+        if (element.tagName === 'BUTTON') {
             elementType = 'button';
-            elementLabel = $(element).text();
-        } else if ($(element).is('a')) {
+            elementLabel = element.textContent;
+        } else if (element.tagName === 'A') {
             elementType = 'link';
-            elementLabel = $(element).text();
-        } else if ($(element).is('video')) {
+            elementLabel = element.textContent;
+        } else if (element.tagName === 'VIDEO') {
             elementType = 'video';
             elementLabel = 'Video';
-        } else if ($(element).is('select')) {
+        } else if (element.tagName === 'SELECT') {
             elementType = 'dropdown';
-            elementLabel = $(element).children("option:selected").text();
+            elementLabel = element.options[element.selectedIndex].text;
         }
 
         console.log(`Event sent to GTM - Type: ${elementType}, Label: ${elementLabel}`);
     }
 
-    $('#enterSelectionMode').click(function() {
+    document.getElementById('enterSelectionMode').addEventListener('click', function() {
         selectionMode = !selectionMode;
         if (selectionMode) {
-            $(this).text('Exit Selection Mode');
+            this.textContent = 'Exit Selection Mode';
         } else {
-            $(this).text('Enter Selection Mode');
-            $('.eventsContainer *').removeClass('hover-highlight');
+            this.textContent = 'Enter Selection Mode';
+            let highlightedElems = document.querySelectorAll('.eventsContainer .hover-highlight');
+            highlightedElems.forEach(elem => elem.classList.remove('hover-highlight'));
         }
     });
 
-    $('.eventsContainer').on('mouseover', '*', function(e) {
+    const eventsContainer = document.querySelector('.eventsContainer');
+    
+    eventsContainer.addEventListener('mouseover', function(e) {
         if (selectionMode) {
-            $(this).addClass('hover-highlight');
+            e.target.classList.add('hover-highlight');
             e.stopPropagation();
         }
-    }).on('mouseout', '*', function() {
+    });
+
+    eventsContainer.addEventListener('mouseout', function(e) {
         if (selectionMode) {
-            $(this).removeClass('hover-highlight');
+            e.target.classList.remove('hover-highlight');
         }
     });
 
-    $('.eventsContainer').on('click', '*', function(e) {
+    eventsContainer.addEventListener('click', function(e) {
+        const clickedElement = e.target;
         if (selectionMode) {
-            if ($(this).hasClass('selected-for-tracking')) {
-                $(this).removeClass('selected-for-tracking');
+            if (clickedElement.classList.contains('selected-for-tracking')) {
+                clickedElement.classList.remove('selected-for-tracking');
             } else {
-                $(this).addClass('selected-for-tracking');
+                clickedElement.classList.add('selected-for-tracking');
             }
             e.preventDefault();
-        } else if ($(this).hasClass('selected-for-tracking')) {
-            mockSendToGTM(this);
+        } else if (clickedElement.classList.contains('selected-for-tracking')) {
+            mockSendToGTM(clickedElement);
         }
     });
 });

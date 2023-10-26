@@ -9,23 +9,29 @@
 <body>
     <div class="container">
         <div class="eventsContainer">
-            <button>Subscribe</button>
-            <button>Download</button>
-            <button>Contact Us</button>
+            <div class="btn-group">
+                <button>Subscribe</button>
+                <button>Download</button>
+                <button>Contact Us</button>
+            </div>
             <br>
-            <a href="#">Read More</a><br>
-            <a href="#">Visit Our Store</a><br>
-            <video width="320" height="240" controls>
+            <div class="links--ddl">
+                <div>
+                    <a href="#">Read More</a>
+                    <a href="#">Visit Our Store</a>
+                </div>
+                <select>
+                    <option>Select an option</option>
+                    <option>Option 1</option>
+                    <option>Option 2</option>
+                    <option>Option 3</option>
+                </select>
+            </div>
+            <video  controls>
                 <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
-            <br>
-            <select>
-                <option>Select an option</option>
-                <option>Option 1</option>
-                <option>Option 2</option>
-                <option>Option 3</option>
-            </select>
+            
         </div>
         <div class="selection-mode-toggle">
             <button id="enterSelectionMode">Enter Selection Mode</button>
